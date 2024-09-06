@@ -1,180 +1,82 @@
-import React, { useState } from 'react';
-import { Box, Grid, FormControl, FormLabel, Input, Select, Button, Heading, Stack, useDisclosure } from '@chakra-ui/react';
-import "./AssignStock.css";  // Import the updated CSS
+// AssignStockForm.js
+import React from 'react';
+// import CommonForm from './CommonForm';
+import ReusableForm from '../ReusableComponents/ReusableForm';
 
 const AssignStockForm = () => {
-  const [formData, setFormData] = useState({
-    itemName: '',
-    assignedTo: '',
-    fatherName: '',
-    mobile: '',
-    class: '',
-    stream: '',
-    section: '',
-    gender: '',
-    quantity: '',
-    date: '',
-    assignedBy: '',
-  });
+  const fields = [
+    {
+      name: 'itemName',
+      type: 'select',
+      placeholder: 'Select Item Name',
+      label: 'Item Name',
+      isRequired: true,
+      options: [
+        { label: 'Dress', value: 'dress' },
+        { label: 'Tie-Belt', value: 'tie-belt' },
+        { label: 'Books', value: 'books' },
+      ],
+    },
+    { name: 'assignedTo', type: 'text', label: 'Assign To', isRequired: true },
+    { name: 'fatherName', type: 'text', label: "Father's Name", isRequired: true },
+    { name: 'mobile', type: 'tel', label: 'Mobile Number', isRequired: true },
+    {
+      name: 'class',
+      type: 'select',
+      placeholder: 'Select Class',
+      label: 'Class',
+      isRequired: true,
+      options: [
+        { label: '10th', value: '10th' },
+        { label: '11th', value: '11th' },
+        { label: '12th', value: '12th' },
+      ],
+    },
+    {
+      name: 'stream',
+      type: 'select',
+      placeholder: 'Select Stream',
+      label: 'Stream',
+      isRequired: true,
+      options: [
+        { label: 'Science', value: 'science' },
+        { label: 'Commerce', value: 'commerce' },
+        { label: 'Arts', value: 'arts' },
+      ],
+    },
+    {
+      name: 'section',
+      type: 'select',
+      placeholder: 'Select Section',
+      label: 'Section',
+      isRequired: true,
+      options: [
+        { label: 'A', value: 'A' },
+        { label: 'B', value: 'B' },
+        { label: 'C', value: 'C' },
+      ],
+    },
+    {
+      name: 'gender',
+      type: 'select',
+      placeholder: 'Select Gender',
+      label: 'Gender',
+      isRequired: true,
+      options: [
+        { label: 'Male', value: 'male' },
+        { label: 'Female', value: 'female' },
+      ],
+    },
+    { name: 'quantity', type: 'number', label: 'Enter Quantity', isRequired: true },
+    { name: 'date', type: 'date', label: 'Date', isRequired: true },
+    { name: 'assignedBy', type: 'text', label: 'Assign By', isRequired: true },
+  ];
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleSubmit = (data) => {
+    console.log('Assigned Stock Data: ', data);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData)
-  };
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  return (
-
-   <div>
-      <form onSubmit={handleSubmit}>
-        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={4}>
-          
-        <FormControl isRequired className="dropdownsSelect">
-            <Select
-              name="itemName"
-              placeholder="Select ItemName"
-              value={formData.itemName}
-              onChange={handleInputChange}
-            >
-              <option value="dress">Dress</option>
-              <option value="tie-belt">Tie-Belt</option>
-              <option value="books">Books</option>
-            </Select>
-          </FormControl>
-
-          <FormControl isRequired className="floating-label" >
-            <Input
-              name="assignedTo"
-              placeholder=" "
-              value={formData.assignedTo}
-              onChange={handleInputChange}
-            />
-            <FormLabel>Assign To</FormLabel>
-          </FormControl>
-          
-          <FormControl isRequired className="floating-label">
-            <Input
-              name="fatherName"
-              placeholder=" "
-              value={formData.fatherName}
-              onChange={handleInputChange}
-            />
-            <FormLabel>Father's Name</FormLabel>
-          </FormControl>
-
-         <FormControl isRequired className="floating-label">
-            <Input
-              name="mobile"
-              type="tel"
-              placeholder=" "
-              value={formData.mobile}
-              onChange={handleInputChange}
-            />
-            <FormLabel>Mobile Number</FormLabel>
-          </FormControl>
-
-          <FormControl isRequired className="dropdownsSelect">
-            <Select
-              name="class"
-              placeholder="Select Class"
-              value={formData.class}
-              onChange={handleInputChange}
-            >
-              <option value="10th">10th</option>
-              <option value="11th">11th</option>
-              <option value="12th">12th</option>
-            </Select>
-          </FormControl>
-
-          <FormControl isRequired className="dropdownsSelect">
-            <Select
-              name="stream"
-              placeholder="Select Stream"
-              value={formData.stream}
-              onChange={handleInputChange}
-            >
-              <option value="science">Science</option>
-              <option value="commerce">Commerce</option>
-              <option value="arts">Arts</option>
-            </Select>
-          </FormControl>
-
-          <FormControl isRequired className="dropdownsSelect">
-            <Select
-              name="section"
-              placeholder="Select Section"
-              value={formData.section}
-              onChange={handleInputChange}
-            >
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-            </Select>
-          </FormControl>
-          <FormControl isRequired className="dropdownsSelect">
-            <Select
-              name="gender"
-              placeholder="Select Gender"
-              value={formData.gender}
-              onChange={handleInputChange}
-            >
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </Select>
-          </FormControl>
-
-          <FormControl isRequired className="floating-label">
-            <Input
-              name="quantity"
-              placeholder=" "
-              value={formData.quantity}
-              onChange={handleInputChange}
-            />
-            <FormLabel>Enter Quantity</FormLabel>
-          </FormControl>
-
-          <FormControl isRequired className="dropdownsSelect">
-          
-            <Input
-       
-              name="date"
-              type="date"
-              placeholder="Enter Date"
-              value={formData.date}
-              onChange={handleInputChange}
-            />
-          </FormControl>
-
-          <FormControl isRequired className="floating-label">
-            <Input
-              name="assignedBy"
-              placeholder=" "
-              value={formData.assignedBy}
-              onChange={handleInputChange}
-            />
-            <FormLabel>Assign By</FormLabel>
-          </FormControl>
-
-        </Grid>
-
-        <Stack mt={6} direction="row" justifyContent='space-between'>
-        
-          <Button variant='outline' mr={3} onClick={onClose} type='cancel' width="full">
-            Cancel
-          </Button>
-          <Button colorScheme="blue" type="submit" width="full">
-            Submit
-          </Button>
-        </Stack>
-      </form>
-      </div>
-  );
+  return <ReusableForm fields={fields} onSubmit={handleSubmit} />;
 };
 
 export default AssignStockForm;

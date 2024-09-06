@@ -22,22 +22,10 @@ width: 2rem;
   } */
    
 
- 
-
-  /* Floating label styles */
+ /* Floating label styles */
 .floating-label {
   position: relative;
   margin-top: 0rem;
-
-}
-.dropdownsSelect .dropdownsSelectLabel{
-  /* margin-bottom: 0rem;
-  margin-left: 1rem; */
-color: aqua;
-  font-weight:bold;
-}
-.dropdownsSelectDOBLabel, .floating-textEffectLabel{
-  margin-left: 1rem;
 }
 
 .floating-label input,
@@ -50,6 +38,12 @@ color: aqua;
   background: transparent;
   position: relative;
   z-index: 1;
+  color: #2a4365; /* Text color for inputs */
+}
+
+.floating-label input:focus,
+.floating-label select:focus {
+  color: #2a4365; /* Text color on focus */
 }
 
 .floating-label label {
@@ -59,7 +53,7 @@ color: aqua;
   transition: all 0.2s ease-in-out;
   pointer-events: none;
   background-color: white;
-  padding: 0 1rem;
+  padding: 0 0rem;
   color: #5f5f5f;
   font-size: 1rem;
   z-index: 2;
@@ -80,11 +74,31 @@ color: aqua;
 }
 
 .floating-label select {
-  color: #999;
+  color: #2a4365; /* Default text color for select */
+}
+
+.floating-label select option {
+  color: #2a4365; /* Text color for options */
+  font-weight: bold; /* Bold text in options */
 }
 
 .floating-label select option:not(:first-child) {
-  color: black;
+  color: #2a4365; /* Bold color for selected option */
+}
+
+.floating-label input {
+  font-weight: bold; /* Bold text when typing */
+}
+
+/* Dropdown label styling */
+.dropdownsSelect .dropdownsSelectLabel {
+  color: #2a4365; /* Color for dropdown labels */
+  font-weight: bold; /* Bold dropdown labels */
+}
+
+.dropdownsSelectDOBLabel,
+.floating-textEffectLabel {
+  margin-left: 1rem;
 }
 
 .formDropdowns {

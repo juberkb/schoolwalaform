@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AssignStockForm from "./AssignStockForm";
 import './AssignStock.css'
-// import { Box, Button,  Heading } from '@chakra-ui/react';
 import { ChevronRightIcon,ArrowBackIcon,AddIcon } from '@chakra-ui/icons';
 
 import {

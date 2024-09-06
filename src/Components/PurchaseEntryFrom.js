@@ -1,115 +1,86 @@
-import React, { useState } from 'react';
-import { Box, Grid, FormControl, FormLabel, Input, Select, Button, Heading, Stack, useDisclosure } from '@chakra-ui/react';
-import "./AssignStock.css";  
+// PurchaseEntryForm.js
+import React from 'react';
+// import ReusableForm from './ReusableForm';
+import ReusableForm from '../ReusableComponents/ReusableForm';
 
 const PurchaseEntryForm = () => {
-  const [formData, setFormData] = useState({
+  const fields = [
+    {
+      type: 'text',
+      name: 'expenseType',
+      placeholder: ' ',
+      label: 'Expense Type',
+      isRequired: true,
+      className: 'floating-label',
+    },
+    {
+      type: 'number',
+      name: 'amount',
+      placeholder: ' ',
+      label: 'Amount',
+      isRequired: true,
+      className: 'floating-label',
+    },
+    {
+      type: 'date',
+      name: 'date',
+      placeholder: 'Date',
+      isRequired: true,
+      className: 'dropdownsSelect',
+    },
+    {
+      type: 'text',
+      name: 'issuedBy',
+      placeholder: ' ',
+      label: 'Issued By',
+      isRequired: true,
+      className: 'floating-label',
+    },
+    {
+      type: 'text',
+      name: 'department',
+      placeholder: ' ',
+      label: 'Department',
+      isRequired: true,
+      className: 'floating-label',
+    },
+    {
+      type: 'text',
+      name: 'purchaseReportBy',
+      placeholder: ' ',
+      label: 'Purchase Report By',
+      isRequired: true,
+      className: 'floating-label',
+    },
+  ];
+
+  const initialData = {
     expenseType: "",
     amount: "",
     date: "",
     issuedBy: "",
     department: "",
-    purchaseReportBy:"",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    purchaseReportBy: "",
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData)
-  };
+  const handleSubmit = (formData) => {
+    // Handle form submission
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+    // Send formData to server if needed
+  };
 
   return (
-
-   <div>
-      <form onSubmit={handleSubmit}>
-        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={4}>
-          
-        <FormControl isRequired className="dropdownsSelect">
-            <Select
-              name="expenseType"
-              placeholder="Expense Type"
-              value={formData.expenseType}
-              onChange={handleInputChange}
-            >
-              <option value="dress">Dress</option>
-              <option value="tie-belt">Tie-Belt</option>
-              <option value="books">Books</option>
-            </Select>
-          </FormControl>
-
-          <FormControl isRequired className="floating-label">
-            <Input
-              name="amount"
-              placeholder=" "
-              value={formData.amount}
-              onChange={handleInputChange}
-            />
-            <FormLabel>Enter Amount</FormLabel>
-          </FormControl>
-        
-          <FormControl isRequired className="dropdownsSelect">
-          
-          <Input
-            name="date"
-            type="date"
-            placeholder="Enter Date"
-            value={formData.date}
-            onChange={handleInputChange}
-          />
-        </FormControl>
-
-          <FormControl isRequired className="floating-label">
-            <Input
-              name="issuedBy"
-              placeholder=" "
-              value={formData.issuedBy}
-              onChange={handleInputChange}
-            />
-            <FormLabel>Issued By</FormLabel>
-          </FormControl>
-
-          <FormControl isRequired className="dropdownsSelect">
-            <Select
-              name="department"
-              placeholder="Department"
-              value={formData.department}
-              onChange={handleInputChange}
-            >
-              <option value="recieved">Libarary</option>
-              <option value="pending">Dress</option>
-              <option value="pending">Finance</option>
-            </Select>
-          </FormControl>
-
-          <FormControl isRequired className="floating-label" >
-            <Input
-              name="purchaseReportBy"
-              placeholder=" "
-              value={formData.purchaseReportBy}
-              onChange={handleInputChange}
-            />
-            <FormLabel>Purchase Report By</FormLabel>
-          </FormControl>
-
-        </Grid>
-
-        <Stack mt={6} direction="row" justifyContent='space-between'>
-        
-          <Button variant='outline' mr={3} onClick={onClose} type='cancel' width="full">
-            Cancel
-          </Button>
-          <Button colorScheme="blue" type="submit" width="full">
-            Submit
-          </Button>
-        </Stack>
-      </form>
-   </div>
+    <ReusableForm
+      fields={fields}
+      initialData={initialData}
+      onSubmit={handleSubmit}
+      submitButtonText="Add Expense"
+      cancelButtonText="Cancel"
+      onCancel={() => { /* Handle cancel action */ }}
+    />
   );
 };
 

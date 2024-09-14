@@ -1,218 +1,353 @@
-import React, { useState } from "react";
-import { ChevronRightIcon, ArrowBackIcon, AddIcon } from "@chakra-ui/icons";
-import {
-  ChakraProvider,
-  Box,
-  Heading,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Button,
-  Input,
-  HStack,
-  Select,
-  Text,
-  IconButton,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  useDisclosure,
-  Avatar,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverHeader,
-  PopoverBody,
-  Stack,
-} from "@chakra-ui/react";
-import { FiSearch, FiRefreshCcw, FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import PurchaseEntryForm from "./PurchaseEntryFrom";
+// import React from 'react';
+// import { Box, Text, Grid, Image, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 
-const initialExpenses = [
-  {
-    srNo: 1,
-    expenseType: "Dress",
-    amount: 200,
-    date: "2024-09-01",
-    issuedBy: "Akshay Mathur",
-    department: "Finance",
-    purchaseReportBy:"Rohit agarwal",
-  },
-  {
-    srNo: 2,
-    expenseType: "Books",
-    amount: 500,
-    date: "2024-09-02",
-    issuedBy: "Aarohi Mathur",
-    department: "Library",
-    purchaseReportBy:"Rohit agarwal",
-  },
-];
+// const Marksheet = () => {
+//   return (
+//     <Box border="1px solid black" maxW="800px" mx="auto" p={4} mt={"6rem"}>
+      
+//       {/* School Name */}
+//       <Box textAlign="center" p={2} mb={4}>
+//         <Text fontSize="xl" fontWeight="bold">School Name</Text>
+//       </Box>
+      
+//       {/* Exam Info and Student Photo */}
+//       <Grid templateColumns="2fr 1fr" gap={4} mb={4}>
+//         <Box p={4}>
+//           <Text>Info about the Exam, Year, Board</Text>
+//         </Box>
+//         <Box border="1px solid black" p={4} textAlign="center">
+//           <Image boxSize="100px" src="student-photo-url" alt="Student Photo" />
+//           <Text mt={2}>Student Photo</Text>
+//         </Box>
+//       </Grid>
 
-const PurchaseEntry = () => {
-  const [expenses, setExpenses] = useState(initialExpenses);
-  const [searchQuery, setSearchQuery] = useState("");
+//       {/* Roll No, Codes, etc. */}
+//       <Box p={2} mb={4}>
+//       <Table variant="simple">
+//           <Thead>
+//             <Tr>
+//               <Th>Roll No.</Th>
+//               <Th>Center</Th>
+//               <Th>district</Th>
+//               <Th>Regular/Private</Th>
+//               <Th>Category</Th>
+//               <Th>Group name</Th>
+//               <Th>Ref. No</Th>
+//             </Tr>
+//           </Thead>
+//           <Tbody>
+//             <Tr>
+//             <Td>100</Td>
+//               <Td>English</Td>
+//               <Td>100</Td>
+//               <Td>85</Td>
+//               <Td>1</Td>
+//               <Td>35</Td>
+//               <Td>35</Td>
+//             </Tr>
+//             {/* Add more rows as needed */}
+//           </Tbody>
+//         </Table>
+//       </Box>
 
-  const filteredData = expenses.filter(
-    (expense) =>
-      expense.expenseType.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      expense.issuedBy.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+//       {/* Student and Parent Details */}
+//       <Box p={2} mb={4}>
+       
+//         <Table variant="simple">
+//         <Tr>
+//               <Td>English</Td>
+//               <Td>100</Td>
+//             </Tr>
+//             <Tr>
+//               <Td>English</Td>
+//               <Td>100</Td>
+//             </Tr>
+//             <Tr>
+//               <Td>English</Td>
+//               <Td>100</Td>
+//             </Tr>
+//         </Table>
+//         <Text>Student Name, Mother's Name, Father's Name, School Name</Text>
+//       </Box>
 
-  const handleSearch = () => {
-    setExpenses(filteredData);
-  };
+//       {/* Marks Table */}
+//       <Box p={4} mb={4}>
+//         <Table variant="simple">
+//           <Thead>
+//             <Tr>
+//               <Th>Subject</Th>
+//               <Th>Max Marks</Th>
+//               <Th>Marks Obtained</Th>
+//               <Th>Materials</Th>
+//               <Th>Practical</Th>
+//             </Tr>
+//           </Thead>
+//           <Tbody>
+//             <Tr>
+//               <Td>English</Td>
+//               <Td>100</Td>
+//               <Td>85</Td>
+//               <Td>50</Td>
+//               <Td>35</Td>
+//             </Tr>
+//           </Tbody>
+//         </Table>
+//       </Box>
 
-  const handleReset = () => {
-    setSearchQuery("");
-    setExpenses(initialExpenses); 
-  };
+//       {/* Total Marks, Percentage, Division */}
+//       <Box p={2} mb={4}>
+//         <Text>All Total, Percentage, Division</Text>
+//         {/* <Table variant="simple">
+//           <Thead>
+//             <Tr>
+//               <Th>Subject</Th>
+//               <Th>Max Marks</Th>
+//               <Th>Marks Obtained</Th>
+//               <Th>Materials</Th>
+//               <Th>Practical</Th>
+//             </Tr>
+//           </Thead>
+//           <Tbody>
+//             <Tr>
+//               <Td>English</Td>
+//               <Td>100</Td>
+//             </Tr>
+//           </Tbody>
+//         </Table> */}
+//       </Box>
 
-  const handleEdit = (expense) => {
-    console.log("Edit expense:", expense);
-  };
+//       {/* Extra Subject */}
+//       <Box p={2} mb={4}>
+//         <Text>Extra Subject</Text>
+//       </Box>
 
-  const handleDelete = (srNo) => {
-    setExpenses(expenses.filter((expense) => expense.srNo !== srNo));
-  };
+//       {/* Board Info, Date, and Signature */}
+//       <Box  p={2}>
+//         <Text>Board Info, Date, and Signature</Text>
+//       </Box>
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
+//     </Box>
+//   );
+// };
 
+// export default Marksheet;
+import React from 'react';
+import { Box, Text, Grid, Image, Divider,Table,Td,Tr,Th,Thead,Tbody } from '@chakra-ui/react';
+
+const SchoolMarksheet = () => {
   return (
-    <ChakraProvider>
-      <Box p={5} mt='5rem'>
-        <Box display="flex" alignItems="center" justifyContent="space-between">
-          <Box display="flex" alignItems="center">
-            <IconButton icon={<ArrowBackIcon />} aria-label="Go back" variant="ghost" mr={4} />
-            <Box>
-              <Heading as="h2" size="lg" mb={2}>Purchase Report</Heading>
-              <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="#">Home</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="#">Accounts</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbItem isCurrentPage>
-                  <BreadcrumbLink href="#">Expense-type</BreadcrumbLink>
-                </BreadcrumbItem>
-              </Breadcrumb>
-            </Box>
-          </Box>
-          <Button ref={btnRef} onClick={onOpen} leftIcon={<AddIcon />} colorScheme="blue">
-            Add Expense
-          </Button>
+    <Box maxW="900px" mx="auto" p={4} mt={"9rem"} 
+    border={"1px solid"}
+    borderColor={"white"}
+    borderRadius={10}
+    bgImage={"url('bgborder.jpg')"}
+    bgPosition="center"
+    bgRepeat="no-repeat"
+    bgSize="cover"
+    style={{ pageBreakInside: "avoid", breakInside: "avoid", pageBreakAfter: "auto" }}
+    >
+      
+    <Box textAlign="center" mb={4}>
+        <Text fontSize="2xl" fontWeight="bold">UDAY   NARAYAN   SIKSHAN   SANSTHAN</Text>
+        <Text>Affiliated To: CBSE Board / Affiliation No: 2512A4S200</Text>
+        <Text>Ph +91 8808498469, Email: info@yourschoolname.com</Text>
+        <Text>Visit us: www.yourschoolwebsite.com</Text>
+      </Box>
+
+      <Divider my={4} />
+
+{/* logo */}
+      <Grid templateColumns="1fr 2fr 1fr" gap={4} mb={4} >
+        <Box textAlign="center">
+          <Image boxSize="100px" src="logo192.png" alt="School Logo" mx="auto" />
         </Box>
 
-        {/* Drawer for Adding Expense */}
-        <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef} size="lg">
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Add New Purchase Items</DrawerHeader>
-            <DrawerBody>
-  <PurchaseEntryForm/>
-            </DrawerBody>
-            <DrawerFooter></DrawerFooter>
-          </DrawerContent>
-        </Drawer>
+        <Box textAlign="center">
+          <Text fontSize="xl" fontWeight="bold">Academic Report</Text>
+          <Text>Academic Session : 2019-2020</Text>
+          <Text>Class : 4</Text>
+        </Box>
 
-        {/* Search and Pagination Bar */}
-        <HStack justifyContent="space-between" alignItems="center" mb="10px" mt="20px">
-          <HStack>
-            <Input
-              height="30px"
-              placeholder="Search By Type/Issuer"
-              width="300px"
-              borderRadius="none"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <Button colorScheme="blue" onClick={handleSearch} height="30px">Search</Button>
-            <HStack>
-              <IconButton icon={<FiRefreshCcw />} aria-label="Reset" colorScheme="gray" onClick={handleReset} size="sm" />
-              <span>Reset</span>
-            </HStack>
-          </HStack>
-          <HStack>
-            <Select width="200px" defaultValue="20" borderRadius="none" height="30px" fontSize="16px">
-              <option value="10">10 Per Page</option>
-              <option value="20">20 Per Page</option>
-              <option value="50">50 Per Page</option>
-            </Select>
-            <HStack>
-              <IconButton icon={<FiChevronLeft />} aria-label="Previous Page" isDisabled={false} bg="blue.100" height="30px" />
-              <Text>1 - 2</Text>
-              <IconButton icon={<FiChevronRight />} aria-label="Next Page" isDisabled={false} bg="blue.400" height="30px" />
-            </HStack>
-          </HStack>
-        </HStack>
+        {/* Student Photo */}
+        <Box textAlign="center">
+          <Image boxSize="100px" src="logo512.png" alt="Student Photo" mx="auto" border={"1px solid red"}/>
+        </Box>
+      </Grid>
 
-        {/* Table */}
-        <Table size="sm" p="20px">
-          <Thead>
-            <Tr bg="blue.500">
-              <Th border="1px solid lightgray" p={1} fontSize="11px" color="white">SR. NO</Th>
-              <Th border="1px solid lightgray" p={1} fontSize="11px" color="white">EXPENSE TYPE</Th>
-              <Th border="1px solid lightgray" p={1} fontSize="11px" color="white">AMOUNT</Th>
-              <Th border="1px solid lightgray" p={1} fontSize="11px" color="white">DATE</Th>
-              <Th border="1px solid lightgray" p={1} fontSize="11px" color="white">ISSUED BY</Th>
-              <Th border="1px solid lightgray" p={1} fontSize="11px" color="white">DEPARTMENT</Th>
-              <Th border="1px solid lightgray" p={1} fontSize="11px" color="white">Purchase Report</Th>
-              <Th border="1px solid lightgray" p={1} fontSize="11px" color="white">ACTION</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {filteredData.map((expense, index) => (
-              <Tr key={index}>
-                <Td border="1px solid lightgray" p={1} fontSize="11px">{expense.srNo}</Td>
-                <Td border="1px solid lightgray" p={1} fontSize="11px">{expense.expenseType}</Td>
-                <Td border="1px solid lightgray" p={1} fontSize="11px">{expense.amount}</Td>
-                <Td border="1px solid lightgray" p={1} fontSize="11px">{expense.date}</Td>
-                <Td border="1px solid lightgray" p={1} fontSize="11px">
-                  {expense.issuedBy}
-                </Td>
-                <Td border="1px solid lightgray" p={1} fontSize="11px">{expense.department}</Td>
-                <Td border="1px solid lightgray" p={1} fontSize="11px">{expense.purchaseReportBy}</Td>
-                <Td border="1px solid lightgray" p={1} fontSize="11px">
-                  <Popover>
-                    <PopoverTrigger>
-                      <IconButton icon={<BsThreeDotsVertical />} variant="outline" aria-label="Actions" size="sm" />
-                    </PopoverTrigger>
-                    <PopoverContent width="100px">
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverHeader>Actions</PopoverHeader>
-                      <PopoverBody>
-                        <Stack spacing={3}>
-                          <Button onClick={() => handleEdit(expense)} size="sm">Edit</Button>
-                          <Button onClick={() => handleDelete(expense.srNo)} size="sm">Delete</Button>
-                        </Stack>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Popover>
-                </Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
+      <Divider my={4} />
+
+      {/* Student Information */}
+      <Box p={4}>
+        <Grid templateColumns="2fr 1fr" gap={6}>
+          <Box>
+            <Text><strong>Name of Student:</strong> SHAHVEZ</Text>
+            <Text><strong>Mother's Name:</strong> MRS. HEENA</Text>
+            <Text><strong>Father's Name:</strong> MR. RAJBEER</Text>
+            <Text><strong>Address:</strong> NOIDA SECTOR 52, UTTAR-PRADESH</Text>
+          </Box>
+          <Box>
+            <Text><strong>Roll No:</strong> N01</Text>
+            <Text><strong>Admission No:</strong> 122</Text>
+            <Text><strong>Date of Birth:</strong> 24/09/2014</Text>
+          </Box>
+        </Grid>
       </Box>
-    </ChakraProvider>
+      
+
+      <Box w="100%" p={4} borderRadius="md">
+            <Table size="sm">
+                <Thead border={"1px solid grey"}>
+                    <Tr>
+                        <Th rowSpan={2} >Subject</Th>
+                        <Th colSpan={5} textAlign="center" >Term I (50)</Th>
+                        <Th colSpan={5} textAlign="center">Term II (50)</Th>
+                        <Th colSpan={2} textAlign="center">Overall</Th>
+                    </Tr>
+                    <Tr>
+                        <Th>FA-1</Th>
+                        <Th>SA-1</Th>
+                        <Th>FA-2</Th>
+                        <Th>FA-3</Th>
+                        <Th>Total</Th>
+                        <Th>FA-3</Th>
+                        <Th>SA-2</Th>
+                        <Th>AC+BW</Th>
+                        <Th>Total</Th>
+                        <Th>Grand Total</Th>
+                        <Th>Grade</Th>
+                    </Tr>
+                </Thead>
+                <Tbody border={"1px solid grey"}>
+                    <Tr>
+                        <Td>HINDI</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>50</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>50</Td>
+                        <Td>100</Td>
+                        <Td>C1</Td>
+                    </Tr>
+                    <Tr>
+                        <Td>English</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>50</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>50</Td>
+                        <Td>100</Td>
+                        <Td>C1</Td>
+                    </Tr>
+                    <Tr>
+                        <Td>Science</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>50</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>50</Td>
+                        <Td>100</Td>
+                        <Td>C1</Td>
+                    </Tr>
+                    <Tr>
+                        <Td>Math</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>50</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>50</Td>
+                        <Td>100</Td>
+                        <Td>C1</Td>
+                    </Tr>
+                    <Tr border={"1px solid grey"}>
+                        <Td >Social Science</Td>
+                        <Td>9</Td>
+                        <Td>9</Td>
+                        <Td>8</Td>
+                        <Td>7</Td>
+                        <Td>50</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>10</Td>
+                        <Td>50</Td>
+                        <Td>100</Td>
+                        <Td>C1</Td>
+                    </Tr>
+                </Tbody>
+            </Table>
+
+            <Box display="flex" justifyContent="space-between" mt={4} p={2}>
+                <Box>
+                    <Text>OVERALL MARKS: 600/1200</Text>
+                </Box>
+                <Box>
+                    <Text>PERCENTAGE: 87%</Text>
+                </Box>
+                <Box>
+                    <Text>RESULT: Pass</Text>
+                </Box>
+            </Box>
+            <Box  p={2}>
+<Text>RULE :</Text>
+                <Box>
+                    <Text>1: Students are suppossed to keep this card neet and clean</Text>
+                </Box>
+                <Box>
+                    <Text>2: In case of the card is lost duplacate card is issued with extra payment fee</Text>
+                </Box>
+                <Box>
+                    <Text>3: For any complaint kindly meet personal at school</Text>
+                </Box>
+            </Box>
+            <Box >
+         <Table variant="simple">
+           <Thead>
+             <Tr>
+               <Th border={"1px solid black"}>Marking range (%)</Th>
+               <Td border={"1px solid black"}>91-100</Td>
+               <Td border={"1px solid black"}>81-90</Td>
+               <Td border={"1px solid black"}>71-80</Td>
+               <Td border={"1px solid black"}>61-70</Td>
+               <Td border={"1px solid black"}>51-60</Td>
+               <Td border={"1px solid black"}>41-50</Td>
+               <Td border={"1px solid black"}>32-40</Td>
+             </Tr>
+           </Thead>
+           <Tbody>
+             <Tr>
+               <Td border={"1px solid black"}>Grade</Td>
+               <Td border={"1px solid black"}>A+</Td>
+               <Td border={"1px solid black"}>A</Td>
+               <Td border={"1px solid black"}>B+</Td>
+               <Td border={"1px solid black"}>B</Td>
+               <Td border={"1px solid black"}>C+</Td>
+               <Td border={"1px solid black"}>C</Td>
+               <Td border={"1px solid black"}>D</Td>
+             </Tr>
+           </Tbody>
+         </Table>
+    </Box>
+
+        </Box>
+
+
+    </Box>
   );
 };
 
-export default PurchaseEntry;
+export default SchoolMarksheet;

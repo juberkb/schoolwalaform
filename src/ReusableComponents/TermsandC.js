@@ -1,255 +1,304 @@
-// import { PageHeader } from "@/common/PageHeader";
-// import { STATUS } from "@/constant";
-// import { useClassSetupStore } from "@/store/classSetup";
-// import { Box, HStack, Container, Heading, Text, ListItem, UnorderedList,Checkbox } from "@chakra-ui/react";
-// import { filter, find, groupBy, map, uniqBy } from "lodash";
-// import { useEffect, useMemo, useRef, useState } from "react";
-// import { MdLocalPrintshop } from "react-icons/md";
-// import { useReactToPrint } from "react-to-print";
-// import { CustomSelect } from "@/common/CustomSelect";
+import { Box, Flex, Image, Table, TableContainer, Tbody, Td, Text, Th, Thead, Divider, Grid } from "@chakra-ui/react";
+import PropTypes from 'prop-types';
 
-// export const TermsandC = ({ themeColor, sessionMasterId }) => {
-//   const [inputValue, setInputValue] = useState();
+export const PrintMarkSheet = ({
+  studentInfo,
+  marks,
+  attendance,
+  overallMarks,
+  percentage,
+  result,
+  date,
+  teacherRemarks,
+  principalRemarks
+}) => {
+  
+  return (
+    <Box
+      maxW={"595pt"} maxH={"842pt"}
+      border={"none"}
+      borderColor={"white"}
+      borderRadius={10}
+      bgImage={"url('/assets/bgborder.jpg')"}
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      bgSize="cover"
+      style={{ pageBreakInside: "avoid", breakInside: "avoid", pageBreakAfter: "auto" }}
+    >
+      <Box textAlign="center" mb={1}>
+        <Text fontSize="2xl" fontWeight="bold">Paathshala Group of School</Text>
+        <Text>Affiliated To: CBSE Board / Affiliation No: 2512A4S200</Text>
+        <Text>Ph +91 8808498469, Email: info@yourschoolname.com</Text>
+        <Text>Visit us: www.paathshala.com</Text>
+      </Box>
 
-//   const { getClassSubjectAction, getClassSubjectStatus, allClassSubjects } = useClassSetupStore(s => ({
-//     getClassSubjectAction: s.getClassSubjectAction,
-//     getClassSubjectStatus: s.getClassSubjectStatus,
-//     // allClassSubjects: s.allClassSubjects,
-//   }));
+      <Divider my={4} />
 
-//   useEffect(() => {
-//     if ((getClassSubjectStatus || 1) === STATUS.NOT_STARTED) {
-//       getClassSubjectAction();
-//     }
-//   }, [getClassSubjectAction, getClassSubjectStatus]);
+      <Grid templateColumns="1fr 2fr 1fr" gap={4} mt={"-1pt"}>
+        <Box textAlign="center">
+          <Image boxSize="100px" src="/assets/SmartPaathshala.png" alt="School Logo" mx="auto" />
+        </Box>
 
-//   const inputHandler = (name, val) => {
-//     setInputValue(pre => ({ ...pre, [name]: val }));
-//   };
+        <Box textAlign="center">
+          <Text fontSize="xl" fontWeight="bold">Academic Report</Text>
+          <Text>Academic Session : {studentInfo.session}</Text>
+          <Text>Class : {studentInfo.class}</Text>
+        </Box>
 
-//   const classes = useMemo(() => {
-//     return groupBy(allClassSubjects, "classMasterId");
-//   }, [allClassSubjects]);
+        <Box textAlign="center">
+          <Image boxSize="100px" src={studentInfo.photoUrl} alt="Student Photo" mx="auto" border={"1px solid red"} />
+        </Box>
+      </Grid>
 
-//   const streamSec = useMemo(() => {
-//     return filter(classes?.[inputValue?.classMasterId], c => c.streamMasterId === parseInt(inputValue?.streamMasterId));
-//   }, [classes, inputValue?.classMasterId, inputValue?.streamMasterId]);
+      <Box pl={8}>
+        <Grid templateColumns="2fr 1fr" gap={6}>
+          <Box>
+            <Text><strong>Name of Student:</strong> {studentInfo.name}</Text>
+            <Text><strong>Mother's Name:</strong> {studentInfo.motherName}</Text>
+            <Text><strong>Father's Name:</strong> {studentInfo.fatherName}</Text>
+            <Text><strong>Address:</strong> {studentInfo.address}</Text>
+          </Box>
+          <Box>
+            <Text><strong>Roll No:</strong> {studentInfo.rollNo}</Text>
+            <Text><strong>Admission No:</strong> {studentInfo.admissionNo}</Text>
+            <Text><strong>Date of Birth:</strong> {studentInfo.dob}</Text>
+          </Box>
+        </Grid>
+      </Box>
 
-//   const secSub = useMemo(() => {
-//     return find(classes?.[inputValue?.classMasterId], c => c.streamMasterId === parseInt(inputValue?.streamMasterId) && c.sectionMasterId === parseInt(inputValue?.sectionMasterId));
-//   }, [classes, inputValue?.classMasterId, inputValue?.sectionMasterId, inputValue?.streamMasterId]);
+      <Box w="100%" p={4} borderRadius="md">
+        <Table size="sm">
+          <Thead>
+            <Tr>
+              <Th rowSpan={2} border={"1px solid black"}>Subject</Th>
+              <Th colSpan={5} border={"1px solid black"} textAlign="center">Term I (50)</Th>
+              <Th colSpan={5} border={"1px solid black"} textAlign="center">Term II (50)</Th>
+              <Th colSpan={2} border={"1px solid black"} textAlign="center">Overall</Th>
+            </Tr>
+            <Tr>
+              <Th border={"1px solid black"}>FA-1</Th>
+              <Th border={"1px solid black"}>SA-1</Th>
+              <Th border={"1px solid black"}>FA-2</Th>
+              <Th border={"1px solid black"}>FA-3</Th>
+              <Th border={"1px solid black"}>Total</Th>
+              <Th border={"1px solid black"}>FA-3</Th>
+              <Th border={"1px solid black"}>SA-2</Th>
+              <Th border={"1px solid black"}>AC+BW</Th>
+              <Th border={"1px solid black"}>Total</Th>
+              <Th border={"1px solid black"}>Grand Total</Th>
+              <Th border={"1px solid black"}>Grade</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {marks.map((subject, index) => (
+              <Tr key={index}>
+                <Td border={"1px solid black"}>{subject.name}</Td>
+                <Td border={"1px solid black"}>{subject.term1.fa1}</Td>
+                <Td border={"1px solid black"}>{subject.term1.sa1}</Td>
+                <Td border={"1px solid black"}>{subject.term1.fa2}</Td>
+                <Td border={"1px solid black"}>{subject.term1.fa3}</Td>
+                <Td border={"1px solid black"}>{subject.term1.total}</Td>
+                <Td border={"1px solid black"}>{subject.term2.fa1}</Td>
+                <Td border={"1px solid black"}>{subject.term2.sa2}</Td>
+                <Td border={"1px solid black"}>{subject.term2.acBw}</Td>
+                <Td border={"1px solid black"}>{subject.term2.total}</Td>
+                <Td border={"1px solid black"}>{subject.overall.total}</Td>
+                <Td border={"1px solid black"}>{subject.grade}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
 
-//   const [printProps, setPrintProps] = useState(null);
-//   const printRef = useRef(null);
+        <Box display="flex" justifyContent="space-between" mt={1} p={2}>
+          <Box>
+            <Text>OVERALL MARKS: <strong>{overallMarks}</strong></Text>
+          </Box>
+          <Box>
+            <Text>PERCENTAGE: <strong>{percentage}</strong></Text>
+          </Box>
+          <Box>
+            <Text>RESULT: <strong>{result}</strong></Text>
+          </Box>
+        </Box>
 
-//   const handlePrintClick = (props) => {
-//     setPrintProps(props);
-//   };
+        <Table variant="simple" size="sm" mb={4}>
+          <Tbody>
+            <Tr>
+              <Td border={"1px solid black"}>Attendance</Td>
+              <Td border={"1px solid black"}>TERM I</Td>
+              <Td border={"1px solid black"}>TERM II</Td>
+            </Tr>
+            <Tr>
+              <Td border={"1px solid black"}>Total Working Days</Td>
+              <Td border={"1px solid black"}>{attendance.term1.totalDays}</Td>
+              <Td border={"1px solid black"}>{attendance.term2.totalDays}</Td>
+            </Tr>
+            <Tr>
+              <Td border={"1px solid black"}>Total Attendance</Td>
+              <Td border={"1px solid black"}>{attendance.term1.attendance}</Td>
+              <Td border={"1px solid black"}>{attendance.term2.attendance}</Td>
+            </Tr>
+          </Tbody>
+        </Table>
 
-//   const handlePrint = useReactToPrint({
-//     content: () => printRef.current,
-//   });
+        <Box mt={"0pt"}>
+          <Text>RULE :</Text>
+          <Box>
+            <Text>1: Students are supposed to keep this card neat and clean</Text>
+          </Box>
+          <Box>
+            <Text>2: In case of the card is lost duplicate card is issued with extra payment fee</Text>
+          </Box>
+          <Box>
+            <Text>3: For any complaint kindly meet personnel at school</Text>
+          </Box>
+        </Box>
 
-//   useEffect(() => {
-//     if (printProps) {
-//       handlePrint();
-//     }
-//   }, [printProps, handlePrint]);
+        <Box>
+          <Table variant="simple" mt={"12pt"}>
+            <Thead>
+              <Tr>
+                <Th border={"1px solid black"}>Marking range (%)</Th>
+                <Td border={"1px solid black"}>91-100</Td>
+                <Td border={"1px solid black"}>81-90</Td>
+                <Td border={"1px solid black"}>71-80</Td>
+                <Td border={"1px solid black"}>61-70</Td>
+                <Td border={"1px solid black"}>51-60</Td>
+                <Td border={"1px solid black"}>41-50</Td>
+                <Td border={"1px solid black"}>32-40</Td>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td border={"1px solid black"}>Grade</Td>
+                <Td border={"1px solid black"}>A+</Td>
+                <Td border={"1px solid black"}>A</Td>
+                <Td border={"1px solid black"}>B+</Td>
+                <Td border={"1px solid black"}>B</Td>
+                <Td border={"1px solid black"}>C+</Td>
+                <Td border={"1px solid black"}>C</Td>
+                <Td border={"1px solid black"}>D</Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </Box>
 
-//   const [isChecked, setIsChecked] = useState(false);
-//  // Handler for checkbox state
-//  const handleCheckboxChange = (e) => {
-//     setIsChecked(e.target.checked);
-//     console.log("User checked the box:", e.target.checked);
-//   };
+        <Divider my={1} />
 
-//   return (
-   
-//         <Box height="87vh" display="flex" flexDirection="column">
-//           <PageHeader heading={"Exam Terms & Condition"} />
-    
-         
-//           <Box
-//             p={5}
-//             bg={"white"}
-//             flex={1} 
-//             overflowY="auto" 
-//             className="custom-scrollbar"
-//             maxH="calc(100vh - 70px)" 
-//             px={10}
-//             sx={{
-//               scrollbarWidth: "thin",
-//               scrollbarColor: `${themeColor}.500 ${themeColor}.100`,
-//               "&::-webkit-scrollbar": {
-//                 width: "8px",
-//               },
-//               "&::-webkit-scrollbar-thumb": {
-//                 backgroundColor: `${themeColor}.500`,
-//                 borderRadius: "4px",
-//               },
-//               "&::-webkit-scrollbar-track": {
-//                 backgroundColor: `${themeColor}.100`,
-//               },
-//             }}
-//           >
-//             <Heading as="h1" size="xl" mb={3} textAlign="center">
-//               School Examination Terms and Conditions
-//             </Heading>
+        <Grid templateColumns="1fr 1fr 1fr" gap={4} mt={"12pt"}>
+          <Box textAlign="center">
+            <Text fontWeight="bold">Signature of Parent / Guardian</Text>
+            <Text>................................................</Text>
+          </Box>
+          <Box textAlign="center">
+            <Text fontWeight="bold">Signature of Class Teacher</Text>
+            <Text>................................................</Text>
+          </Box>
+          <Box textAlign="center">
+            <Text fontWeight="bold">Principal's Signature</Text>
+            <Text>................................................</Text>
+          </Box>
+        </Grid>
 
-//             <Box mb={4}>
-//               <Heading as="h2" size="md" mb={2}>
-//                 1. Eligibility
-//               </Heading>
-//               <UnorderedList spacing={2}>
-//                 <ListItem>
-//                   All students must meet the prerequisites for any examination, including but not limited to attendance requirements, submission of required assignments, and any other conditions stipulated by the school.
-//                 </ListItem>
-//                 <ListItem>
-//                   Any student found to have provided false information during the registration process will be disqualified.
-//                 </ListItem>
-//               </UnorderedList>
-//             </Box>
-    
-//             <Box mb={4}>
-//               <Heading as="h2" size="md" mb={2}>
-//                 2. Examination Schedule
-//               </Heading>
-//               <UnorderedList spacing={2}>
-//                 <ListItem>
-//                   The examination dates, times, and venues will be communicated through official school channels. Students are responsible for checking these announcements regularly.
-//                 </ListItem>
-//                 <ListItem>
-//                   "School Name" reserves the right to reschedule exams due to unforeseen circumstances. In such cases, students will be informed promptly.
-//                 </ListItem>
-//               </UnorderedList>
-//             </Box>
-    
-//             <Box mb={4}>
-//         <Heading as="h2" size="md" mb={2}>
-//           3. Exam Conduct
-//         </Heading>
-//         <UnorderedList spacing={2}>
-//           <ListItem>
-//             All students are expected to arrive at the examination venue at least 15 minutes before the scheduled start
-//             time.
-//           </ListItem>
-//           <ListItem>
-//             Late arrivals may be denied entry to the exam, depending on the rules set by the exam supervisor.
-//           </ListItem>
-//           <ListItem>
-//             Students must bring their valid school identification and any required materials "e.g., pens, pencils,
-//             calculators, etc".
-//           </ListItem>
-//           <ListItem>
-//             Use of unauthorized materials or devices "e.g., mobile phones, smartwatches, etc." during the exam is strictly
-//             prohibited. Any violation will result in disqualification.
-//           </ListItem>
-//         </UnorderedList>
-//       </Box>
+        <Box>
+          <Text fontSize="sm" textAlign="right" mt={4}>Date: {date}</Text>
+          <Text fontSize="sm" textAlign="right">Teacher's Remarks: {teacherRemarks}</Text>
+          <Text fontSize="sm" textAlign="right">Principal's Remarks: {principalRemarks}</Text>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
 
-//       <Box mb={4}>
-//         <Heading as="h2" size="md" mb={2}>
-//           4. Cheating and Plagiarism
-//         </Heading>
-//         <UnorderedList spacing={2}>
-//           <ListItem>
-//             Any form of cheating, including copying from others, using unauthorized resources, or communicating with
-//             others during the exam, is strictly prohibited.
-//           </ListItem>
-//           <ListItem>
-//             Students caught cheating or plagiarizing will be subject to disciplinary action, including possible
-//             disqualification from the exam and further academic consequences as per the school`s policy.
-//           </ListItem>
-//         </UnorderedList>
-//       </Box>
+PrintMarkSheet.propTypes = {
+  studentInfo: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    motherName: PropTypes.string.isRequired,
+    fatherName: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    rollNo: PropTypes.string.isRequired,
+    admissionNo: PropTypes.string.isRequired,
+    dob: PropTypes.string.isRequired,
+    session: PropTypes.string.isRequired,
+    class: PropTypes.string.isRequired,
+    photoUrl: PropTypes.string.isRequired,
+  }).isRequired,
+  marks: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    term1: PropTypes.shape({
+      fa1: PropTypes.number,
+      sa1: PropTypes.number,
+      fa2: PropTypes.number,
+      fa3: PropTypes.number,
+      total: PropTypes.number,
+    }).isRequired,
+    term2: PropTypes.shape({
+      fa1: PropTypes.number,
+      sa2: PropTypes.number,
+      acBw: PropTypes.number,
+      total: PropTypes.number,
+    }).isRequired,
+    overall: PropTypes.shape({
+      total: PropTypes.number,
+    }).isRequired,
+    grade: PropTypes.string,
+  })).isRequired,
+  attendance: PropTypes.shape({
+    term1: PropTypes.shape({
+      totalDays: PropTypes.number,
+      attendance: PropTypes.number,
+    }).isRequired,
+    term2: PropTypes.shape({
+      totalDays: PropTypes.number,
+      attendance: PropTypes.number,
+    }).isRequired,
+  }).isRequired,
+  overallMarks: PropTypes.number.isRequired,
+  percentage: PropTypes.string.isRequired,
+  result: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  teacherRemarks: PropTypes.string.isRequired,
+  principalRemarks: PropTypes.string.isRequired,
+};
 
-//       <Box mb={4}>
-//         <Heading as="h2" size="md" mb={2}>
-//           5. Special Accommodations
-//         </Heading>
-//         <UnorderedList spacing={2}>
-//           <ListItem>
-//             Students requiring special accommodations for exams due to disabilities must submit a request in writing to the
-//             school administration at least two weeks before the exam date.
-//           </ListItem>
-//           <ListItem>
-//             The school will evaluate the request and make reasonable accommodations where appropriate.
-//           </ListItem>
-//         </UnorderedList>
-//       </Box>
 
-//       <Box mb={4}>
-//         <Heading as="h2" size="md" mb={2}>
-//           6. Exam Results
-//         </Heading>
-//         <UnorderedList spacing={2}>
-//           <ListItem>
-//             Exam results will be announced within the timeframe stipulated by the school. Results will be accessible
-//             through official channels, including the school website or portals.
-//           </ListItem>
-//           <ListItem>
-//             In case of disputes regarding exam results, students have the right to request a review within "number of days"
-//             days of the result being published. The school`s decision following the review is final.
-//           </ListItem>
-//         </UnorderedList>
-//       </Box>
 
-//       <Box mb={4}>
-//         <Heading as="h2" size="md" mb={2}>
-//           7. Absence from Exams
-//         </Heading>
-//         <UnorderedList spacing={2}>
-//           <ListItem>
-//             Students who miss an exam without a valid reason "e.g., medical emergency" will receive a failing grade unless
-//             otherwise stated by the school`s policy.
-//           </ListItem>
-//           <ListItem>
-//             For absences due to valid reasons, students must notify the school as soon as possible and provide appropriate
-//             documentation. Rescheduled exams will be at the discretion of the school.
-//           </ListItem>
-//         </UnorderedList>
-//       </Box>
 
-//       <Box mb={4}>
-//         <Heading as="h2" size="md" mb={2}>
-//           8. Privacy and Data Protection
-//         </Heading>
-//         <UnorderedList spacing={2}>
-//           <ListItem>
-//             The school ensures that all personal data related to students and their examination results will be treated
-//             with confidentiality in accordance with applicable data protection laws.
-//           </ListItem>
-//           <ListItem>
-//             Examination results may only be disclosed to the student, their legal guardian, or other authorized personnel.
-//           </ListItem>
-//         </UnorderedList>
-//       </Box>
 
-//       <Box mb={4}>
-//         <Heading as="h2" size="md" mb={2}>
-//           9. Amendments
-//         </Heading>
-//         <UnorderedList spacing={2}>
-//           <ListItem>
-//             "School Name" reserves the right to update or modify these Terms and Conditions at any time. Students will be
-//             notified of any significant changes via official school communication channels.
-//           </ListItem>
-//         </UnorderedList>
-//       </Box>
+// When you use this component, you need to pass the required data as props:
 
-//       <Text mt={6}>
-//         By participating in any examination conducted by "School Name", you acknowledge that you have read, understood, and
-//         agree to abide by these terms and conditions.
-//       </Text>
 
-//       <Box mt={6}>
-//           <Checkbox isChecked={isChecked} onChange={handleCheckboxChange}>
-//             I have read and agree to the Terms and Conditions
-//           </Checkbox> 
-//            </Box>
-
-//           </Box>
-//         </Box>
-
-//   );
-// };
+<PrintMarkSheet
+  studentInfo={{
+    name: "John Doe",
+    motherName: "Jane Doe",
+    fatherName: "Jack Doe",
+    address: "123 Main St, Springfield",
+    rollNo: "12345",
+    admissionNo: "67890",
+    dob: "01/01/2005",
+    session: "2024-25",
+    class: "10",
+    photoUrl: "/path/to/photo.jpg",
+  }}
+  marks={[
+    {
+      name: "Mathematics",
+      term1: { fa1: 20, sa1: 30, fa2: 25, fa3: 28, total: 103 },
+      term2: { fa1: 22, sa2: 30, acBw: 24, total: 76 },
+      overall: { total: 179 },
+      grade: "A",
+    },
+    // Add more subjects
+  ]}
+  attendance={{
+    term1: { totalDays: 180, attendance: 170 },
+    term2: { totalDays: 180, attendance: 175 },
+  }}
+  overallMarks={179}
+  percentage="89.5%"
+  result="Pass"
+  date="15 September 2024"
+  teacherRemarks="Excellent performance"
+  principalRemarks="Well done"
+/>
